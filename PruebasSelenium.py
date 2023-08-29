@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By  # Busqueda mediante xpath
+from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager # Busca el driver mas reciente para nuestro navegador
 from time import sleep
 
@@ -14,8 +15,10 @@ options.add_argument('--proxy-server=http://37.19.220.179:8443')
 # options.add_argument('--headless')
 
 # Descargue el controlador de acuerdo a laversiónde chrome que tengo instalado
-driver = webdriver.Chrome(ChromeDriverManager().install(),options=options)
+driver = webdriver.Chrome(
+    service=Service(ChromeDriverManager().install()),
+    options=options)
 # Paso **: Hacer que el navegador cargue la página web
-driver.get("https://ekilu.com/es/recetas/hamburguesas")
+driver.get("https://cloudbytes.dev/snippets/run-selenium-and-chrome-on-wsl2")
 sleep(120)
 driver.close()

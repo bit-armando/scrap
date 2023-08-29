@@ -1,7 +1,4 @@
 import scrapy
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
 import re
 from nestle.items import Receta
 
@@ -15,26 +12,12 @@ class EkiluSpider(scrapy.Spider):
     start_urls = ["https://ekilu.com/es/recetas/hamburguesas",
                   "https://ekilu.com/es/recetas/pollo?page=2"]
 
-    def __init__(self):
-        self.options = webdriver.ChromeOptions()
-        self.options.add_argument('--incognito')
-        self.options.add_argument('--headless')
-        
-        self.driver = webdriver.Chrome(ChromeDriverManager().install(),options=self.options)
     
     def parse(self, response):
         # Obtener recetas
         recetas_item = response.xpath('//div[@class="card result-item-card"]/a/@href').getall()
         for receta in recetas_item:
             yield response.follow(receta, callback=self.parse_receta)
-
-        # Paginacion
-        self.driver.get(response.url)
-        next_page = self.driver.find_element(By.CLASS_NAME, 'pagination')
-        next_page.click()
-        print("################################")
-        print(response.url)
-        print("################################")
     
     def parse_receta(self, response):
         titulo = response.xpath('//div[@class="recipe__content"]/h1/text()').get()
@@ -59,5 +42,3 @@ class EkiluSpider(scrapy.Spider):
         
         yield receta
     
-    def closed(self, reason):
-        self.driver.quit()

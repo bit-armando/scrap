@@ -49,6 +49,3 @@ class NestleSpider(scrapy.Spider):
         receta['pasos'] = pasos
         
         yield receta
-
-    def closed(self, reason):
-        self.driver.quit()
