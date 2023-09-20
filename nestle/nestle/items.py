@@ -8,6 +8,7 @@ import scrapy
 
 class Receta(scrapy.Item):
     nombre = scrapy.Field()
+    categoria = scrapy.Field()
     porciones = scrapy.Field()
     ingredientes = scrapy.Field()
     pasos = scrapy.Field()
