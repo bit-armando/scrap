@@ -1,2 +1,6 @@
-__pychache__/
+__pycache__/
 *.ipynb
+*.json
+pruebas.py
+*.csv
+ekilu/
